@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treemap Buttons</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 5px; /* 제목과 부제목 사이 간격 */
+            color: #333;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 30px; /* 부제목과 트리맵 사이 간격 */
+            color: #818181;
+            text-align: center;
+        }
+
+        .treemap {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 1fr;
+            gap: 15px; /* 버튼 사이 간격 */
+            width: 80vmin;
+            height: 80vmin;
+        }
+
+        .treemap button {
+            color: white;
+            border: none;
+            border-radius: 10px; /* 버튼 모서리를 둥글게 설정 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .treemap button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 마우스 올릴 때 그림자 효과 */
+        }
+
+        .treemap .large {
+            grid-column: span 2;
+            grid-row: span 2;
+            background-color: #0056b3; /* 진한 파란색 */
+        }
+
+        .treemap .medium {
+            grid-column: span 2;
+            background-color: #3399ff; /* 중간 파란색 */
+        }
+
+        .treemap .small {
+            grid-column: span 1;
+            background-color: #66b3ff; /* 연한 파란색 */
+        }
+    </style>
+</head>
+<body>
+    <h1>Treemap Button Layout</h1> <!-- 제목 추가 -->
+    <h2>당신의 마음속 깊은 곳 아픔을 어루만져 줍니다.</h2>
+    <div class="treemap">
+        <button class="large">Large Button</button>
+        <button class="medium">Medium Button</button>
+        <button class="small">Small Button 1</button>
+        <button class="small">Small Button 2</button>
+        <button class="medium">Medium Button</button>
+        <button class="large">Large Button</button>
+        <button class="medium">Medium Button</button>
+    </div>
+</body>
+</html>
