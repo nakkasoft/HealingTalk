@@ -71,16 +71,19 @@
         .treemap .large {
             grid-column: span 2;
             grid-row: span 2;
+            font-size: 80px;
             background-color: #0056b3;
         }
 
         .treemap .medium {
             grid-column: span 2;
+            font-size: 50px;
             background-color: #3399ff;
         }
 
         .treemap .small {
             grid-column: span 1;
+            font-size: 30px;
             background-color: #66b3ff;
         }
 
@@ -149,7 +152,11 @@
 
         .input-field input[type="text"]:focus + i {
             color: #0056b3;
-        }        
+        }
+
+        .choices-container button {
+            height : 80px;
+        }
     </style>
 </head>
 <body>
@@ -177,25 +184,36 @@
         <h1 id="greeting"></h1>
         <h2>Selected Buttons: <span id="selectedCount">0</span>/5</h2>
         <div class="treemap">
-            <button class="large" onclick="selectButton(this)">Large Button</button>
-            <button class="medium" onclick="selectButton(this)">Medium Button</button>
-            <button class="small" onclick="selectButton(this)">Small Button 1</button>
-            <button class="small" onclick="selectButton(this)">Small Button 2</button>
-            <button class="small" onclick="selectButton(this)">Small Button 1</button>
-            <button class="small" onclick="selectButton(this)">Small Button 2</button>
-            <button class="large" onclick="selectButton(this)">Large Button</button>
-            <button class="medium" onclick="selectButton(this)">Medium Button</button>
+            <button class="large" onclick="selectButton(this)">취업</button>
+            <button class="medium" onclick="selectButton(this)">스트레스</button>
+            <button class="small" onclick="selectButton(this)">이직</button>
+            <button class="small" onclick="selectButton(this)">번아웃</button>
+            <button class="small" onclick="selectButton(this)">우울감</button>
+            <button class="small" onclick="selectButton(this)">불안함</button>
+            <button class="large" onclick="selectButton(this)">연애</button>
+            <button class="medium" onclick="selectButton(this)">외로움</button>
+        </div>
+    </div>
+
+    <!-- 네 번째 페이지 -->
+    <div id="page4">
+        <h1>4-Choice Quiz</h1>
+        <div class="choices-container">
+            <button class="button" id="button1" onclick="selectChoice(this)">Choice 1</button>
+            <button class="button" id="button2" onclick="selectChoice(this)">Choice 2</button>
+            <button class="button" id="button3" onclick="selectChoice(this)">Choice 3</button>
+            <button class="button" id="button4" onclick="selectChoice(this)">Choice 4</button>
         </div>
     </div>
 
     <!-- 로딩 화면 -->
-    <div id="page4" class="hidden">
+    <div id="page5" class="hidden">
         <h1>Loading...</h1>
         <div class="loader"></div>
     </div>
 
     <!-- 결과 페이지 -->
-    <div id="page5" class="hidden">
+    <div id="page6" class="hidden">
         <h1>Results</h1>
         <p>You have successfully completed the selection!</p>
         <button class="button" onclick="showPage('page1')">Go to First Page</button>
@@ -225,18 +243,47 @@
         }
 
         function selectButton(button) {
+            changeButtonText();
             showPage('page4');
+        }
+
+        function selectChoice(button) {
+            const selectedAnswer = button.innerText;
+            //document.getElementById('selectedAnswer').innerText = selectedAnswer;
+
+            showPage('page5');
 
             // 로딩 화면 후 결과 페이지로 이동
             setTimeout(() => {
                 // 결과 페이지로 이동
-                showPage('page5');
+                showPage('page6');
             }, 2000); // 2초 지연
+        }
+
+        function changeButtonText() {
+            // 동적으로 변경할 텍스트 배열
+            const newTexts = [
+                "Updated Text 1",
+                "New Dynamic Label 2",
+                "Another Example Text 3",
+                "Final Button Label 4"
+            ];
+
+            // 버튼 ID 목록
+            const buttonIds = ["button1", "button2", "button3", "button4"];
+
+            // 버튼 텍스트 업데이트
+            buttonIds.forEach((id, index) => {
+                const button = document.getElementById(id);
+                if (button) {
+                    button.innerText = newTexts[index];
+                }
+            });
         }
 
         // 처음 페이지 로드시 첫 번째 페이지 표시
         document.addEventListener('DOMContentLoaded', () => {
-            showPage('page1');
+            showPage('page3');
         });
     </script>
 </body>
