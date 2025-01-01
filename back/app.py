@@ -6,5 +6,15 @@ app = Flask(__name__)
 def home():
     return "Hello, Flask!"
 
-if __name__ == '__main__':
-    app.run(debug=True)
+@app.route('/getquestionmock')
+def mypage():
+   return 'This is My Page!'
+
+
+@app.route('/getquestion')
+def mypage():
+   return 'This is My Page!'
+
+if __name__ == '__main__':  
+   app.run('0.0.0.0', port=5677, debug=True)
+
