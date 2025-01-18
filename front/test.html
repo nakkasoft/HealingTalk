@@ -184,14 +184,14 @@
         <h1 id="greeting"></h1>
         <h2>Selected Buttons: <span id="selectedCount">0</span>/5</h2>
         <div class="treemap">
-            <button class="large" id="topic1" onclick="selectButton(this)">취업</button>
-            <button class="medium" id="topic2" onclick="selectButton(this)">스트레스</button>
-            <button class="small" id="topic3" onclick="selectButton(this)">이직</button>
-            <button class="small" id="topic4" onclick="selectButton(this)">번아웃</button>
-            <button class="small" id="topic5" onclick="selectButton(this)">우울감</button>
-            <button class="small" id="topic6" onclick="selectButton(this)">불안함</button>
-            <button class="large" id="topic7"  onclick="selectButton(this)">연애</button>
-            <button class="medium" id="topic8" onclick="selectButton(this)">외로움</button>
+            <button class="large" id="topic_job" onclick="selectButton(this)">취업</button>
+            <button class="medium" id="topic_stress" onclick="selectButton(this)">스트레스</button>
+            <button class="small" id="topic_move" onclick="selectButton(this)">이직</button>
+            <button class="small" id="topic_burnout" onclick="selectButton(this)">번아웃</button>
+            <button class="small" id="topic_depress" onclick="selectButton(this)">우울감</button>
+            <button class="small" id="topic_anxious" onclick="selectButton(this)">불안함</button>
+            <button class="large" id="topic_love"  onclick="selectButton(this)">연애</button>
+            <button class="medium" id="topic_lonely" onclick="selectButton(this)">외로움</button>
         </div>
     </div>
 
@@ -254,7 +254,10 @@
                 //    method: 'GET',
                 //});
 
-                const response = await fetch(`http://127.0.0.1:5677/getquestionmock`, {
+                const type = option;
+                console.log('type:', type);
+
+                const response = await fetch(`http://127.0.0.1:5677/getquestionmock?type=${type}`, {
                     method: 'GET',
                 });
 
