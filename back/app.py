@@ -100,6 +100,18 @@ def getquestionmock():
     response.headers.add("Access-Control-Allow-Headers", "Content-Type")
     return response
 
+@app.route('/getcheercomment', methods=['GET'])
+def getcheercomment():
+    type = request.args.get('type')
+    print(type)
+
+    response = make_response(jsonify({"comment":"Cheer UP!!!"}))
+
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+    response.headers.add("Access-Control-Allow-Headers", "Content-Type")
+    return response
+
 @app.route('/getquestion')
 def getquestion():
    return 'This is My Page!'
