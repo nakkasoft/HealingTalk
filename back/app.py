@@ -1,4 +1,6 @@
 from flask import Flask, jsonify, make_response, request
+import openai
+import os
 
 app = Flask(__name__)
 
@@ -83,11 +85,14 @@ topic_data = {"topic_job":["원하는 기업에 지원할 자격이 부족하다
 "연애와 직장/학업 간의 균형을 맞추기 어려운 경우.",
 "연애가 끝날 경우에 대한 두려움으로 깊은 관계를 맺기 어려운 상태."]}
 
+# OpenAI API 키 설정
+openai.api_key = os.getenv("OPENAI_API_KEY")  # 환경변수에서 가져오기
+
 @app.route('/')
 def home():
-    return "Hello, Flask!"
+    return "Hello, 청년!"
 
-@app.route('/getquestionmock', methods=['GET'])
+@app.route('/getdetailedquestion', methods=['GET'])
 def getquestionmock():
     type = request.args.get('type')
     print(type)
@@ -102,19 +107,33 @@ def getquestionmock():
 
 @app.route('/getcheercomment', methods=['GET'])
 def getcheercomment():
-    type = request.args.get('type')
-    print(type)
+    type = request.args.get('type', 'general')
+    print(f"Requested type: {type}")
 
-    response = make_response(jsonify({"comment":"Cheer UP!!!"}))
+    # OpenAI API 호출
+    prompt = f"'{type}'와 관련하여 힘이 되는 응원의 말을 해줘."
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-4",
+            messages=[{"role": "system", "content": "너는 따뜻하고 희망적인 응원의 메시지를 주는 조언자야."},
+                      {"role": "user", "content": prompt}],
+            max_tokens=550
+        )
+        cheer_message = response['choices'][0]['message']['content'].strip()
+    except Exception as e:
+        error_message = f"OpenAI API 호출 중 오류 발생: {str(e)}"
+        print(error_message)
+        cheer_message = "Cheer UP!!! (Error 발생)"
+        return make_response(jsonify({"comment": cheer_message, "error": error_message}), 500)
+
+
+    response = make_response(jsonify({"comment": cheer_message}))
+    #response = make_response(jsonify({"comment":"Cheer UP!!!"}))
 
     response.headers.add("Access-Control-Allow-Origin", "*")
     response.headers.add("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
     response.headers.add("Access-Control-Allow-Headers", "Content-Type")
     return response
-
-@app.route('/getquestion')
-def getquestion():
-   return 'This is My Page!'
 
 if __name__ == '__main__':  
    app.run('0.0.0.0', port=5677, debug=True)
